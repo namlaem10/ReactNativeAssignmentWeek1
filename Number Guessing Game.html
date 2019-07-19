@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Guessing Game</title>
+</head>
+<body>
+    <!--JavaScript-->
+    <script>
+        let min=1;
+        let max=50;
+        let yourRandom=Math.ceil(Math.random() * (+max - +min)) + +min;
+        let count=10;
+        let passResult='';
+        function guessingGame(){
+            let yourinput= document.getElementById("number").value;
+            if(yourinput==""){
+                alert("Please input your guessing number!");
+                return false;
+            }
+            count--;
+            if(count == 0){
+                alert("Sorry, you lose! The result is "+ yourRandom +". Please try again!");
+                location.reload();
+            }
+            if(yourinput==yourRandom){
+                document.getElementById("message").innerHTML="<h2>That's correct. You win with "+ (10-count) +" guesses!!!</h2>"
+                document.getElementById("message").style.color="green"
+                document.getElementById("guess").innerHTML="<button style='width: 90px; margin-left:27px; height:30px;' id='btn-playagain'>Play again</button>"
+                let playagain=document.getElementById("btn-playagain");
+                playagain.addEventListener("click", function(){
+                    location.reload();
+                });
+            }
+            else if(yourinput>yourRandom){
+                document.getElementById("message").innerHTML="<h2>That's wrong. It too high, guess lower. You have "+ count +" left!!!</h2>"
+                document.getElementById("message").style.color="red"
+            }
+            else if(yourinput<yourRandom){
+                document.getElementById("message").innerHTML="<h2>That's wrong. It too low, guess higher. You have "+ count +" left!!!</h2>"
+                document.getElementById("message").style.color="red"
+            }
+            passResult+= yourinput + '\n';
+            document.getElementById("passResult").innerHTML=passResult;
+        }
+    </script>
+    <!--HTML-->
+    <h1>Number Guessing Game [0-50]</h1>
+    <div id="message"><h2>Input your guessing number here: </h2></div>
+    <div id="guess">
+        <input type="number" id="number" style="width:270px; height:30px;" />
+        <button style="width: 70px; height:30px;" id="btn-guess" onClick="guessingGame();">
+            Guess
+        </button>
+    </div>
+    <div style="margin-top: 15px; font-size: 25px;">
+        <div style="float: left;">Results Entered: </div>
+        <div id="passResult"></div>
+    </div>  
+</body>
+</html>
